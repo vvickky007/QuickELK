@@ -176,3 +176,37 @@ To delete entire deployment provide kubernetes namespace where this stack is cre
 ```bash
 # ansible-playbook  clean.yaml -e namespace=<Namespace of Deployment> -e stackname=<Name of Deployed Stack>
 ```
+Example:
+```bash
+# ansible-playbook  clean.yaml -e namespace=ezsinam1 -e stackname=mystack
+
+Output:
+ [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+
+PLAY [localhost] *****************************************************************************************************************************************************
+
+TASK [Remove the ELK Stack.] *****************************************************************************************************************************************
+changed: [localhost]
+
+TASK [debug] *********************************************************************************************************************************************************
+ok: [localhost] => {
+    "chart.stdout_lines": [
+        "release \"mystack\" uninstalled"
+    ]
+}
+
+TASK [Delete the Namespace.] *****************************************************************************************************************************************
+ansible-playbook  clean.yaml -e namespace=ezsinam1 -e stackname=mystackchanged: [localhost]
+
+TASK [debug] *********************************************************************************************************************************************************
+ok: [localhost] => {
+    "ns.stdout_lines": [
+        "namespace \"ezsinam1\" deleted"
+    ]
+}
+
+PLAY RECAP ***********************************************************************************************************************************************************
+localhost                  : ok=4    changed=2    unreachable=0    failed=0
+
+```
