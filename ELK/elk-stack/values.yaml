@@ -1,0 +1,36 @@
+# Default values for elk-stack.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+elasticReplicaCount: 3
+
+image:
+  elasticrepository: docker.elastic.co/elasticsearch/elasticsearch
+  kibanarepository: docker.elastic.co/kibana/kibana
+  filebeatrepository: docker.elastic.co/beats/filebeat
+  logrepository: docker.elastic.co/logstash/logstash
+  metricbeatrepository: docker.elastic.co/beats/metricbeat 
+  pullPolicy: IfNotPresent
+
+serviceAccount:
+  name: "elasticsearch-logging"
+
+filebeatServiceAccount:
+  name: "filebeat"
+
+metricbeatServiceAccount:
+  name: "metricbeat"
+
+service:
+  elasticPort: 9200
+  kibanaPort: 5601
+  logPort: 5044
+
+resources:
+  limits:
+    cpu: 1
+    memory: "5Gi"
+  requests:
+    cpu: 1
+    memory: "5Gi"
+
