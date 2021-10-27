@@ -1,0 +1,24 @@
+# Setting host
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  
+  tasks:
+    - name: Handle the Namespace.
+      block:
+      - name: Check the Namespace Exist.
+        shell: kubectl get ns {{namespace}}
+        register: ns
+      - debug: var=ns.stdout_lines
+
+      rescue:
+      - name: Create Namespace if NOT exists.
+        shell: kubectl create ns {{namespace}}
+        register: ns
+      - debug: var=ns.stdout_lines
+
+    - name: Deploy the ELK Stack.
+      shell: helm install {{stackname}} {{chartpath}} -n {{namespace}}
+      register: chart
+    - debug: var=chart.stdout_lines
+

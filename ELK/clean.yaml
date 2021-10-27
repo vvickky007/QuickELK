@@ -1,0 +1,16 @@
+# Setting host
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  
+  tasks:
+    - name: Remove the ELK Stack.
+      shell: helm delete {{stackname}} -n {{namespace}}
+      register: chart
+    - debug: var=chart.stdout_lines
+
+    - name: Delete the Namespace.
+      shell: kubectl delete ns {{namespace}}
+      register: ns
+    - debug: var=ns.stdout_lines
+
