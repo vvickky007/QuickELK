@@ -3,11 +3,11 @@
 Quick Code to deploy ELK stack (Elasticsearch, Logstash, Kibana) and supporting services on Kubernetes Controlled Docker platform.
 
 **Prerequisite**
-- Kubernets Cluser with minimum 3 workers, to host 3 Elasticsearch nodes.
+- Kubernets Cluster with minimum 3 workers, to host 3 Elasticsearch nodes.
 - Docker Based Container Runtime Environment.
 - Helm Installed and Configured to access Kubernetes Cluster Master for deployments.
 - Ansible Installed and Configured to run playbook.
-- Sufficent resource over kubernetes worker for the entire deployment.
+- Sufficient resource over kubernetes worker for the entire deployment.
 - External Load Balancer(Eg. Metal LB) need to be configured over Kubernetes, to access Kubernetes GUI from LoadBalancer Service.
 
 **Consideration**
@@ -233,20 +233,20 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0
 ```
 ## Backup Strategy 
 - **Elasticsearch**: Snapshot and Restore
-    - A snapshot is a backup taken from a running Elasticsearch cluster. You can take snapshots of an entire cluster, including all its data streams and indices. You can also take snapshots of only specific data streams or indices in the cluster. You must register a snapshot repository before you can create snapshots. Snapshots can be stored in either local or remote repositories. Remote repositories can reside on Amazon S3, HDFS, Microsoft Azure, Google Cloud Storage, and other platforms supported by a repository plugin.
-- **Kibana**: 
-    - Dashboard and configuration are important for Kibana, Dashboards could be exported and source control managed. Configuration could backed up externally on PV or NFS. Rest of the instance could be treated as Cow.
+ - A snapshot is a backup taken from a running Elasticsearch cluster. You can take snapshots of an entire cluster, including all its data streams and indices. You can also take snapshots of only specific data streams or indices in the cluster. You must register a snapshot repository before you can create snapshots. Snapshots can be stored in either local or remote repositories. Remote repositories can reside on Amazon S3, HDFS, Microsoft Azure, Google Cloud Storage, and other platforms supported by a repository plugin.
+- **Kibana**: 
+ - Dashboard and configuration are important for Kibana, Dashboards could be exported and source control managed. Configuration could backed up externally on PV or NFS. Rest of the instance could be treated as Cow.
 - **Logstash**:
-    - Logstash will act as middle layer in between Logging source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
+ - Logstash will act as middle layer in between Logging source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
 - **Metricbeat**:
-    - Metricbeat will act as middle layer in between Metric source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
+ - Metricbeat will act as middle layer in between Metric source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
 - **Filebeat**:
-    - Filebeat will act as middle layer in between Logging source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
+ - Filebeat will act as middle layer in between Logging source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
 
 ## Deployment Constraints
-- This is a POC, low resource are assigned to kubernetes objects created under this activity. With realtime production setup resources allocated to kubernets objects needed to be increased for better performance.
-- No PVC are used in this deployment. We may need to attach PVC to improve redudendency and robustness.
-- Readiness and Liveniness are also not integraded, may be considered for future rollouts in production.
+- This is a POC, low resource are assigned to kubernetes objects created under this activity. With real-time production setup resources allocated to kubernets objects needed to be increased for better performance.
+- No PVC are used in this deployment. We may need to attach PVC to improve redundancy and robustness.
+- Readiness and Liveliness are also not integrated, may be considered for future rollout in production.
 - FileBeat/MetricBeat could be attached to any application container as side-car to forward logs/metric to Elastic Search. Not covered in this POC.
-- This is a quick study, take it as refference for your basic understanding before you productize.
+- This is a quick study, take it as reference for your basic understanding before you productize.
 
