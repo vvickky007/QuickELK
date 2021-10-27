@@ -49,5 +49,43 @@ Example:
 ```bash
 ansible-playbook main.yaml -e namespace=ezsinam1 -e stackname=mystack -e chartpath=elk-stack
 
+Output: 
+ [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+
+PLAY [localhost] *****************************************************************************************************************************************************
+
+TASK [Check the Namespace Exist.] ************************************************************************************************************************************
+fatal: [localhost]: FAILED! => {"changed": true, "cmd": "kubectl get ns ezsinam1", "delta": "0:00:00.136403", "end": "2021-10-27 14:11:27.742760", "msg": "non-zero return code", "rc": 1, "start": "2021-10-27 14:11:27.606357", "stderr": "Error from server (NotFound): namespaces \"ezsinam1\" not found", "stderr_lines": ["Error from server (NotFound): namespaces \"ezsinam1\" not found"], "stdout": "", "stdout_lines": []}
+
+TASK [Create Namespace if NOT exists.] *******************************************************************************************************************************
+changed: [localhost]
+
+TASK [debug] *********************************************************************************************************************************************************
+ok: [localhost] => {
+    "ns.stdout_lines": [
+        "namespace/ezsinam1 created"
+    ]
+}
+
+TASK [Deploy the ELK Stack.] *****************************************************************************************************************************************
+changed: [localhost]
+
+TASK [debug] *********************************************************************************************************************************************************
+ok: [localhost] => {
+    "chart.stdout_lines": [
+        "NAME: mystack",
+        "LAST DEPLOYED: Wed Oct 27 14:11:28 2021",
+        "NAMESPACE: ezsinam1",
+        "STATUS: deployed",
+        "REVISION: 1",
+        "NOTES:",
+        "1. Get the application URL by running these commands:"
+    ]
+}
+
+PLAY RECAP ***********************************************************************************************************************************************************
+localhost                  : ok=4    changed=2    unreachable=0    failed=1
+
 
 ```
