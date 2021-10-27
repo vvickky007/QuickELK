@@ -243,6 +243,10 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0
 - **Filebeat**:
     - Filebeat will act as middle layer in between Logging source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
 
-
-
+## Deployment Constraints
+- This is a POC, low resource are assigned to kubernetes objects created under this activity. With realtime production setup resources allocated to kubernets objects needed to be increased for better performance.
+- No PVC are used in this deployment. We may need to attach PVC to improve redudendency and robustness.
+- Readiness and Liveniness are also not integraded, may be considered for future rollouts in production.
+- FileBeat/MetricBeat could be attached to any application container as side-car to forward logs/metric to Elastic Search. Not covered in this POC.
+- This is a quick study, take it as refference for your basic understanding before you productize.
 
