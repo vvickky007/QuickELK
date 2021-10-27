@@ -12,7 +12,7 @@ Quick Code to deploy ELK stack (Elasticsearch, Logstash, Kibana) and supporting 
 
 **Consideration**
 
-Docker images hosted at official "docker.elastic.co" are valid, will be used for ELK deployments. Below are the docker repo used for deployment:
+Docker images hosted at official "docker.elastic.co" are valid and used for ELK deployments. Below are the docker repo:
   - **ElasticSearch**: docker.elastic.co/elasticsearch/elasticsearch
   - **Kibana**: docker.elastic.co/kibana/kibana
   - **Filebeat**: docker.elastic.co/beats/filebeat
