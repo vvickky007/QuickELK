@@ -10,6 +10,14 @@ Quick Code to deploy ELK stack (Elasticsearch, Logstash, Kibana) and supporting 
 - Sufficent resource over kubernetes worker for the entire deployment.
 - External Load Balancer(Eg. Metal LB) need to be configured over Kubernetes, to access Kubernetes GUI from LoadBalancer Service.
 
+**Consideration**
+
+Docker images hosted at official "docker.elastic.co" are valid, will be used for ELK deployments. Below are the docker repo used for deployment:
+  - **ElasticSearch**: docker.elastic.co/elasticsearch/elasticsearch
+  - **Kibana**: docker.elastic.co/kibana/kibana
+  - **Filebeat**: docker.elastic.co/beats/filebeat
+  - **Logstash**: docker.elastic.co/logstash/logstash
+  - **Metricbeat**: docker.elastic.co/beats/metricbeat 
 
 ## Tools and Technologies Used
 - **Kubernetes**:
