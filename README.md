@@ -8,6 +8,7 @@ Quick Code to deploy ELK stack (Elasticsearch, Logstash, Kibana) and supporting 
 - Helm Installed and Configured to access Kubernetes Cluster Master for deployments.
 - Ansible Installed and Configured to run playbook.
 - Sufficent resource over kubernetes worker for the entire deployment.
+- External Load Balancer(Metal LB) need to be configured over Kubernetes, to access Kubernetes GUI from LoadBalancer Service.
 
 
 ## Tools and Technologies Used
