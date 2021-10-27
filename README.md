@@ -86,6 +86,57 @@ ok: [localhost] => {
 
 PLAY RECAP ***********************************************************************************************************************************************************
 localhost                  : ok=4    changed=2    unreachable=0    failed=1
+```
 
+### Installing Validation Via Kubectl
+Run below command for deployment validation, provide the namespace provided in previous step.
+```bash
+kubectl get all -n <Namespace for Deployment>
+```
 
+Example:
+```bash
+kubectl get all -n ezsinam1
+
+Output:
+NAME                                       READY   STATUS    RESTARTS   AGE
+pod/elasticsearch-logging-0                1/1     Running   0          4m7s
+pod/elasticsearch-logging-1                1/1     Running   0          4m7s
+pod/elasticsearch-logging-2                1/1     Running   0          4m7s
+pod/filebeat-4kc6r                         1/1     Running   0          4m7s
+pod/filebeat-5b9pz                         1/1     Running   0          4m7s
+pod/filebeat-cxwpj                         1/1     Running   0          4m7s
+pod/filebeat-fqth7                         1/1     Running   0          4m7s
+pod/filebeat-mgtts                         1/1     Running   0          4m7s
+pod/filebeat-rdgx8                         1/1     Running   0          4m7s
+pod/filebeat-rgxmc                         1/1     Running   0          4m7s
+pod/kibana-logging-58db4c758f-gbb6k        1/1     Running   2          4m7s
+pod/logstash-deployment-5b4879b9f7-4zwnr   1/1     Running   0          4m7s
+pod/metricbeat-6kp4k                       1/1     Running   0          4m7s
+pod/metricbeat-dqf7c                       1/1     Running   0          4m7s
+pod/metricbeat-gj78v                       1/1     Running   0          4m7s
+pod/metricbeat-kgbfg                       1/1     Running   0          4m7s
+pod/metricbeat-ngb9q                       1/1     Running   0          4m7s
+pod/metricbeat-tw7zb                       1/1     Running   0          4m7s
+pod/metricbeat-x4tv4                       1/1     Running   0          4m7s
+
+NAME                            TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)          AGE
+service/elasticsearch-logging   ClusterIP      10.108.33.4    <none>          9200/TCP         4m7s
+service/kibana-logging          LoadBalancer   10.108.8.123   10.64.109.113   5601:30316/TCP   4m7s
+service/logstash-service        ClusterIP      10.105.7.173   <none>          5044/TCP         4m7s
+
+NAME                        DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/filebeat     7         7         7       7            7           <none>          4m7s
+daemonset.apps/metricbeat   7         7         7       7            7           <none>          4m7s
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kibana-logging        1/1     1            1           4m7s
+deployment.apps/logstash-deployment   1/1     1            1           4m7s
+
+NAME                                             DESIRED   CURRENT   READY   AGE
+replicaset.apps/kibana-logging-58db4c758f        1         1         1       4m7s
+replicaset.apps/logstash-deployment-5b4879b9f7   1         1         1       4m7s
+
+NAME                                     READY   AGE
+statefulset.apps/elasticsearch-logging   3/3     4m7s
 ```
