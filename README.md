@@ -43,12 +43,12 @@ Quick Code to deploy ELK stack (Elasticsearch, Logstash, Kibana) and supporting 
 Clone the "QuickELK" project, ensure that all Prerequisite are in place. Select a kubernetes namespace where this stack is required to be created. Namespace will be automatically created if not exist. Select a helm deployment name for the stack. Run below command from inside the clone directory.
 
 ```bash
-ansible-playbook main.yaml -e namespace=<Namespace for Deployment> -e stackname=<Name of Stack> -e chartpath=elk-stack
+# ansible-playbook main.yaml -e namespace=<Namespace for Deployment> -e stackname=<Name of Stack> -e chartpath=elk-stack
 ```
 
 Example:
 ```bash
-ansible-playbook main.yaml -e namespace=ezsinam1 -e stackname=mystack -e chartpath=elk-stack
+# ansible-playbook main.yaml -e namespace=ezsinam1 -e stackname=mystack -e chartpath=elk-stack
 
 Output: 
  [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
@@ -92,17 +92,17 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=1
 Clone the "QuickELK" project, ensure that all Prerequisite are in place. Select a kubernetes namespace where this stack is required to be created. Namespace will be automatically created if not exist. Select a helm deployment name for the stack. Run below command from inside the clone directory.
 
 ```bash
-helm install <Stack Name> elk-stack --namespace <Namespace for Deployment> --create-namespace
+# helm install <Stack Name> elk-stack --namespace <Namespace for Deployment> --create-namespace
 ```
 ### Installation Validation via Kubectl
 Run below command for deployment validation, provide the namespace provided in previous step.
 ```bash
-kubectl get all -n <Namespace for Deployment>
+# kubectl get all -n <Namespace for Deployment>
 ```
 
 Example:
 ```bash
-kubectl get all -n ezsinam1
+# kubectl get all -n ezsinam1
 
 Output:
 NAME                                       READY   STATUS    RESTARTS   AGE
@@ -145,4 +145,29 @@ replicaset.apps/logstash-deployment-5b4879b9f7   1         1         1       4m7
 
 NAME                                     READY   AGE
 statefulset.apps/elasticsearch-logging   3/3     4m7s
+```
+
+### Integration Validation
+To validate indeces for ElasticSearch to validate Integration with filebeat, logstash and metricbeat.
+```bash
+# curl <elasticsearch-logging clsuetrIP Service IP>:9200/_cat/indices
+```
+
+Example:
+```bash
+# curl 10.108.33.4:9200/_cat/indices
+yellow open logstash-2021.07.08          sxXdBTWZSt6dIaDB4s_QLQ 5 1   218 0 388.2kb 388.2kb
+yellow open logstash-2021.08.05          H37edbWUT4enUQfF---t_A 5 1     6 0  62.7kb  62.7kb
+yellow open logstash-2021.09.05          vuQnUkGMTLWy85c9LSr-SA 5 1   681 0 458.8kb 458.8kb
+yellow open logstash-2021.07.05          Im1jancJQlWfwUiC8h0vKw 5 1   717 0 773.6kb 773.6kb
+yellow open logstash-2021.07.02          b9AFqpcTTkW5nmqoqaCsig 5 1 27535 0   6.6mb   6.6mb
+yellow open metricbeat-6.8.20-2021.10.27 iiVkm-lMQwKT6ElVwpukGw 5 1 17020 0  12.9mb  12.9mb
+...
+...
+```
+
+MetricBeat and LogStash indices should be visible. Also you can select any index and check data using below command.
+Example:
+```bash
+# curl 10.108.33.4:9200/logstash-2021.07.08/_search
 ```
