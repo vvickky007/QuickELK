@@ -1,0 +1,109 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: elastic-logging-{{ include "elk-stack.fullname" . }}
+  labels:
+    {{- include "elk-stack.labels" . | nindent 4 }}
+    k8s-app: elasticsearch-logging
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - "services"
+  - "namespaces"
+  - "endpoints"
+  verbs:
+  - "get"
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: elastic-logging-{{ include "elk-stack.fullname" . }}
+  labels:
+    {{- include "elk-stack.labels" . | nindent 4 }}
+    k8s-app: elasticsearch-logging
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.serviceAccount.name }}
+  namespace: {{ .Release.Namespace }}
+  apiGroup: ""
+roleRef:
+  kind: ClusterRole
+  name: elastic-logging-{{ include "elk-stack.fullname" . }}
+  apiGroup: ""
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: filebeat-{{ include "elk-stack.fullname" . }}
+  labels:
+    {{- include "elk-stack.labels" . | nindent 4 }}
+    k8s-app: filebeat
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources:
+  - namespaces
+  - pods
+  verbs:
+  - get
+  - watch
+  - list
+  
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: filebeat-{{ include "elk-stack.fullname" . }}
+  labels:
+    {{- include "elk-stack.labels" . | nindent 4 }}
+    k8s-app: filebeat
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.filebeatServiceAccount.name }}
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: filebeat-{{ include "elk-stack.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: metricbeat-{{ include "elk-stack.fullname" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.metricbeatServiceAccount.name }}
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: metricbeat-{{ include "elk-stack.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: metricbeat-{{ include "elk-stack.fullname" . }}
+  labels:
+    k8s-app: metricbeat
+    {{- include "elk-stack.labels" . | nindent 4 }}
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources:
+  - namespaces
+  - events
+  - pods
+  verbs:
+  - get
+  - watch
+  - list
+---
