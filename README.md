@@ -38,3 +38,16 @@ Quick Code to deploy ELK stack (Elasticsearch, Logstash, Kibana) and supporting 
 ![Deployment Diagram](/ELK_DiaNew.png)
 
 ### Installing via Ansible
+
+Clone the "QuickELK" project, ensure that all Prerequisite are in place. Select a kubernetes namespace where this stack is required to be created. Namespace will be automatically created if not exist. Select a helm deployment name for the stack. Run below command from inside the clone directory.
+
+```bash
+ansible-playbook main.yaml -e namespace=<Namespace for Deployment> -e stackname=<Name of Stack> -e chartpath=elk-stack
+```
+
+Example:
+```bash
+ansible-playbook main.yaml -e namespace=ezsinam1 -e stackname=mystack -e chartpath=elk-stack
+
+
+```
