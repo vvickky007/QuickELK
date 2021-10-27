@@ -35,6 +35,6 @@ Quick Code to deploy ELK stack (Elasticsearch, Logstash, Kibana) and supporting 
 ## Installation and Usage
 
 ### Target Architecture Diagram
-![Deployment Diagram](/ELK_Dia.png)
+![Deployment Diagram](/ELK_DiaNew.png)
 
 ### Installing via Ansible
