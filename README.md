@@ -171,7 +171,7 @@ Example:
 ```bash
 # curl 10.108.33.4:9200/logstash-2021.07.08/_search
 ```
-### Integration Cleanup
+### Installation Cleanup
 To delete entire deployment provide kubernetes namespace where this stack is created. Namespace will be automatically deleted. Also provide helm deployment name of the created stack. Run below command.
 ```bash
 # ansible-playbook  clean.yaml -e namespace=<Namespace of Deployment> -e stackname=<Name of Deployed Stack>
