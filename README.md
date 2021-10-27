@@ -167,9 +167,11 @@ yellow open metricbeat-6.8.20-2021.10.27 iiVkm-lMQwKT6ElVwpukGw 5 1 17020 0  12.
 ```
 
 MetricBeat and LogStash indices should be visible. Also you can select any index and check data using below command.
+
 Example:
 ```bash
 # curl 10.108.33.4:9200/logstash-2021.07.08/_search
+
 ```
 ### Installation Cleanup
 To delete entire deployment provide kubernetes namespace where this stack is created. Namespace will be automatically deleted. Also provide helm deployment name of the created stack. Run below command.
