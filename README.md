@@ -210,3 +210,18 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=4    changed=2    unreachable=0    failed=0
 
 ```
+## Backup Strategy 
+- **Elasticsearch**: Snapshot and Restore
+    - A snapshot is a backup taken from a running Elasticsearch cluster. You can take snapshots of an entire cluster, including all its data streams and indices. You can also take snapshots of only specific data streams or indices in the cluster. You must register a snapshot repository before you can create snapshots. Snapshots can be stored in either local or remote repositories. Remote repositories can reside on Amazon S3, HDFS, Microsoft Azure, Google Cloud Storage, and other platforms supported by a repository plugin.
+- **Kibana**: 
+    - Dashboard and configuration are important for Kibana, Dashboards could be exported and source control managed. Configuration could backed up externally on PV or NFS. Rest of the instance could be treated as Cow.
+- **Logstash**:
+    - Logstash will act as middle layer in between Logging source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
+- **Metricbeat**:
+    - Metricbeat will act as middle layer in between Metric source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
+- **Filebeat**:
+    - Filebeat will act as middle layer in between Logging source and Elastic Search, no specific backup measures required. Keep the backup of its configuration instead. Could be treated as a Cow.
+
+
+
+
