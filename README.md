@@ -102,6 +102,17 @@ Clone the "QuickELK" project, ensure that all Prerequisite are in place. Select 
 ```bash
 # helm install <Stack Name> elk-stack --namespace <Namespace for Deployment> --create-namespace
 ```
+
+### Installing Specific ELK stack Release via Helm/Ansible
+Update file "ELK/elk-stack/Chart.yaml", value of key "appVersion" to the specific version of ELK stack. Presently we have configured entire stack installation fron version "6.8.20".
+
+```yaml
+apiVersion: v2
+appVersion: 6.8.20 # Update Specific version of ELK stack, Automatically all components will be installed with selected version.
+...
+...
+```
+
 ### Installation Validation via Kubectl
 Run below command for deployment validation, provide the namespace provided in previous step.
 ```bash
