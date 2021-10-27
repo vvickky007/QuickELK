@@ -87,8 +87,13 @@ ok: [localhost] => {
 PLAY RECAP ***********************************************************************************************************************************************************
 localhost                  : ok=4    changed=2    unreachable=0    failed=1
 ```
+### Installing via Helm
+Clone the "QuickELK" project, ensure that all Prerequisite are in place. Select a kubernetes namespace where this stack is required to be created. Namespace will be automatically created if not exist. Select a helm deployment name for the stack. Run below command from inside the clone directory.
 
-### Installing Validation Via Kubectl
+```bash
+helm install <Stack Name> elk-stack --namespace <Namespace for Deployment> --create-namespace
+```
+### Installation Validation via Kubectl
 Run below command for deployment validation, provide the namespace provided in previous step.
 ```bash
 kubectl get all -n <Namespace for Deployment>
