@@ -104,7 +104,7 @@ Clone the "QuickELK" project, ensure that all Prerequisite are in place. Select 
 ```
 
 ### Installing Specific ELK stack Release via Helm/Ansible
-Update file "ELK/elk-stack/Chart.yaml", value of key "appVersion" to the specific version of ELK stack. Presently we have configured entire stack installation fron version "6.8.20".
+Update file "ELK/elk-stack/Chart.yaml", value of key "appVersion" to the specific version of ELK stack. Presently we have configured entire stack installation from version "6.8.20".
 
 ```yaml
 apiVersion: v2
